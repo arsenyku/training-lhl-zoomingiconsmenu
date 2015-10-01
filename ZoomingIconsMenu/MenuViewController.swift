@@ -10,6 +10,11 @@ import UIKit
 
 class MenuViewController: UICollectionViewController{
 
+    override func viewDidLoad() {
+        collectionView!.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        
+    }
+    
     // MARK: - UICollectionViewController
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -34,4 +39,20 @@ class MenuViewController: UICollectionViewController{
 
         return cell
     }
+    
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        
+        // Center the items in each section. 
+        // To do this, override the section inset on a per section basis and compute
+        // the left and right inset necessary to introduce horizontal spacing.
+        let numberOfCells = self.collectionView(collectionView, numberOfItemsInSection: section)
+        let widthOfCells = CGFloat(numberOfCells) * layout.itemSize.width + CGFloat(numberOfCells-1) * layout.minimumInteritemSpacing
+        
+        let inset = (collectionView.bounds.width - widthOfCells) / 2.0
+        
+        return UIEdgeInsets(top: 0, left: inset, bottom: 40, right: inset)
+    }
+    
 }

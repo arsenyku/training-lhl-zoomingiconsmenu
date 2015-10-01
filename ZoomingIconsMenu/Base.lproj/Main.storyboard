@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="D33-Hr-pdu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HVf-XB-dYf">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -59,8 +59,29 @@
                             <outlet property="delegate" destination="D33-Hr-pdu" id="PIW-WH-KRK"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="OWD-4x-xxU"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16Z-5Z-9yW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="815" y="347"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CKU-vy-h9V">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="HVf-XB-dYf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EGz-dL-Zfp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <outlet property="delegate" destination="s0e-wX-fYF" id="N4q-oX-uhx"/>
+                        <segue destination="D33-Hr-pdu" kind="relationship" relationship="rootViewController" id="p7c-u2-zPz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iL4-Ol-2eW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="s0e-wX-fYF" customClass="ZoomingIconTransition" customModule="ZoomingIconsMenu" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="3" y="347"/>
         </scene>

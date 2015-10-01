@@ -9,7 +9,7 @@
         <!--Detail View Controller-->
         <scene sceneID="oaa-y8-c8j">
             <objects>
-                <viewController id="05k-xy-hyg" userLabel="Detail View Controller" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailViewController" id="05k-xy-hyg" userLabel="Detail View Controller" customClass="DetailViewController" customModule="ZoomingIconsMenu" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uPI-me-b2w"/>
                         <viewControllerLayoutGuide type="bottom" id="xPr-cy-oCs"/>
@@ -36,6 +36,9 @@
                                     <constraint firstAttribute="height" constant="30" id="DZz-SV-ISe"/>
                                 </constraints>
                                 <state key="normal" image="icon-back"/>
+                                <connections>
+                                    <action selector="backButton:" destination="05k-xy-hyg" eventType="touchUpInside" id="AXf-Lb-hIH"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="short" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11y-Ux-lXB" userLabel="ShortLabel">
                                 <rect key="frame" x="280" y="420" width="41" height="21"/>
@@ -43,8 +46,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icH-xT-GUq" userLabel="LongLabel">
-                                <rect key="frame" x="287" y="461" width="34" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icH-xT-GUq" userLabel="LongLabel">
+                                <rect key="frame" x="283" y="461" width="34" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -66,10 +69,11 @@
                             <constraint firstItem="11y-Ux-lXB" firstAttribute="top" secondItem="8Vb-ui-3Jk" secondAttribute="bottom" constant="20" id="nSY-dy-76o"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="59t-Wd-3Rf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mmt-K4-cuP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="622" y="25"/>
+            <point key="canvasLocation" x="1434" y="25"/>
         </scene>
     </scenes>
     <resources>

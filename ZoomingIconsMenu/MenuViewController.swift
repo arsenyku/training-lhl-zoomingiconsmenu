@@ -15,7 +15,7 @@ class MenuViewController: UICollectionViewController{
         
     }
     
-    // MARK: - UICollectionViewController
+    // MARK: - UICollectionViewControllerDataSource
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
@@ -40,6 +40,17 @@ class MenuViewController: UICollectionViewController{
         return cell
     }
     
+    // MARK: UICollectionViewDelegate
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let controller = UIStoryboard(name: "DetailView", bundle: nil)
+            .instantiateViewControllerWithIdentifier("detailViewController")
+            as! DetailViewController
+        
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         let layout = collectionViewLayout as! UICollectionViewFlowLayout

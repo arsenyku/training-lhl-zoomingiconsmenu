@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="D33-Hr-pdu">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Menu View Controller-->
@@ -19,7 +20,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoomingIconCell" id="3uc-vU-anc" userLabel="Cell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoomingIconCell" id="3uc-vU-anc" userLabel="Cell" customClass="ZoomingIconCell" customModule="ZoomingIconsMenu" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -28,25 +29,29 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jal-jb-c9H" userLabel="BackgroundView">
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                            <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-twitter" translatesAutoresizingMaskIntoConstraints="NO" id="4pB-SB-Rbs" userLabel="Icon Image View">
-                                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
-                                            <color key="backgroundColor" name="selectedTextBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <rect key="frame" x="16" y="16" width="93" height="93"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="height" secondItem="3uc-vU-anc" secondAttribute="height" id="2zm-nw-4Ap"/>
-                                    <constraint firstItem="jal-jb-c9H" firstAttribute="top" secondItem="3uc-vU-anc" secondAttribute="top" id="94R-Yn-Fiv"/>
+                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="height" secondItem="jal-jb-c9H" secondAttribute="height" multiplier="3:4" id="6BT-sH-irb"/>
+                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="centerY" secondItem="jal-jb-c9H" secondAttribute="centerY" id="A4h-Id-tMJ"/>
                                     <constraint firstItem="jal-jb-c9H" firstAttribute="height" secondItem="3uc-vU-anc" secondAttribute="height" id="Ah7-5k-lTf"/>
-                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="leading" secondItem="3uc-vU-anc" secondAttribute="leading" id="NWQ-Mh-2HD"/>
-                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="width" secondItem="3uc-vU-anc" secondAttribute="width" id="ZtP-Q4-RnK"/>
-                                    <constraint firstItem="jal-jb-c9H" firstAttribute="leading" secondItem="3uc-vU-anc" secondAttribute="leading" id="c0l-4l-Aeg"/>
-                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="top" secondItem="3uc-vU-anc" secondAttribute="top" id="fL6-qW-vbk"/>
+                                    <constraint firstItem="jal-jb-c9H" firstAttribute="centerY" secondItem="3uc-vU-anc" secondAttribute="centerY" id="eDC-Sl-YNN"/>
+                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="width" secondItem="jal-jb-c9H" secondAttribute="width" multiplier="3:4" id="l7i-8H-QMG"/>
+                                    <constraint firstItem="jal-jb-c9H" firstAttribute="centerX" secondItem="3uc-vU-anc" secondAttribute="centerX" id="lzn-EN-MUY"/>
                                     <constraint firstItem="jal-jb-c9H" firstAttribute="width" secondItem="3uc-vU-anc" secondAttribute="width" id="s6g-I1-gPO"/>
+                                    <constraint firstItem="4pB-SB-Rbs" firstAttribute="centerX" secondItem="jal-jb-c9H" secondAttribute="centerX" id="udS-6S-cAw"/>
                                 </constraints>
                                 <size key="customSize" width="125" height="125"/>
+                                <connections>
+                                    <outlet property="backgroundColourView" destination="jal-jb-c9H" id="yH3-tg-DhC"/>
+                                    <outlet property="iconImageView" destination="4pB-SB-Rbs" id="L4u-Za-7ST"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -57,7 +62,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16Z-5Z-9yW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="270" y="361"/>
+            <point key="canvasLocation" x="3" y="347"/>
         </scene>
     </scenes>
     <resources>

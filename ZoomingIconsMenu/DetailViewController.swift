@@ -8,9 +8,22 @@
 
 import UIKit
 
-class DetailViewController:UIViewController{
+class DetailViewController:UIViewController, ZoomingIconViewController{
+    
+    @IBOutlet weak var backgroundColourView: UIView!
+    @IBOutlet weak var iconImageView: UIImageView!
     
     @IBAction func backButton(sender: UIButton) {
 		navigationController?.popViewControllerAnimated(true)
     }
+    
+    // MARK: ZoomingIconViewController
+    
+    func zoomingIconBackgroundColourViewForTransition(transition: ZoomingIconTransition) -> UIView? {
+        return backgroundColourView
+    }
+    func zoomingIconImageViewForTransition(transition: ZoomingIconTransition) -> UIImageView? {
+        return iconImageView
+    }
+
 }

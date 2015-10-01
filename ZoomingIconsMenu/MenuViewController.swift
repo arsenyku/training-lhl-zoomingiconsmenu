@@ -8,8 +8,10 @@
 
 import UIKit
 
-class MenuViewController: UICollectionViewController{
+class MenuViewController: UICollectionViewController, ZoomingIconViewController{
 
+    var cellForTransition:ZoomingIconCell?
+    
     override func viewDidLoad() {
         collectionView!.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
         
@@ -35,8 +37,7 @@ class MenuViewController: UICollectionViewController{
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("zoomingIconCell", forIndexPath: indexPath)
-        
-
+    	
         return cell
     }
     
@@ -47,6 +48,7 @@ class MenuViewController: UICollectionViewController{
             .instantiateViewControllerWithIdentifier("detailViewController")
             as! DetailViewController
         
+        cellForTransition = (collectionView.cellForItemAtIndexPath(indexPath) as! ZoomingIconCell)
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -66,4 +68,13 @@ class MenuViewController: UICollectionViewController{
         return UIEdgeInsets(top: 0, left: inset, bottom: 40, right: inset)
     }
     
+    // MARK: ZoomingIconViewController
+    
+    func zoomingIconBackgroundColourViewForTransition(transition: ZoomingIconTransition) -> UIView? {
+        return cellForTransition?.backgroundColourView
+    }
+    func zoomingIconImageViewForTransition(transition: ZoomingIconTransition) -> UIImageView? {
+     	return cellForTransition?.iconImageView
+    }
+
 }

@@ -15,6 +15,7 @@
 		120C34661BBDB46B00475EAA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C34651BBDB46B00475EAA /* MenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		120C34681BBDB5E800475EAA /* Zooming-Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 120C34671BBDB5E800475EAA /* Zooming-Icons.xcassets */; settings = {ASSET_TAGS = (); }; };
 		120C346A1BBDBF9A00475EAA /* ZoomingIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C34691BBDBF9A00475EAA /* ZoomingIconCell.swift */; settings = {ASSET_TAGS = (); }; };
+		120C346C1BBDC3A800475EAA /* DetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 120C346B1BBDC3A800475EAA /* DetailView.storyboard */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		120C34651BBDB46B00475EAA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		120C34671BBDB5E800475EAA /* Zooming-Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Zooming-Icons.xcassets"; sourceTree = "<group>"; };
 		120C34691BBDBF9A00475EAA /* ZoomingIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomingIconCell.swift; sourceTree = "<group>"; };
+		120C346B1BBDC3A800475EAA /* DetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailView.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				120C34651BBDB46B00475EAA /* MenuViewController.swift */,
 				120C34691BBDBF9A00475EAA /* ZoomingIconCell.swift */,
 				120C34491BBDAD2900475EAA /* Main.storyboard */,
+				120C346B1BBDC3A800475EAA /* DetailView.storyboard */,
 				120C344C1BBDAD2900475EAA /* Assets.xcassets */,
 				120C34671BBDB5E800475EAA /* Zooming-Icons.xcassets */,
 				120C344E1BBDAD2900475EAA /* LaunchScreen.storyboard */,
@@ -185,6 +188,7 @@
 				120C34501BBDAD2900475EAA /* LaunchScreen.storyboard in Resources */,
 				120C344D1BBDAD2900475EAA /* Assets.xcassets in Resources */,
 				120C34681BBDB5E800475EAA /* Zooming-Icons.xcassets in Resources */,
+				120C346C1BBDC3A800475EAA /* DetailView.storyboard in Resources */,
 				120C344B1BBDAD2900475EAA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

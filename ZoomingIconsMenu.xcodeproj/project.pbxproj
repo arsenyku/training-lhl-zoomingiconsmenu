@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		120C34461BBDAD2900475EAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C34451BBDAD2900475EAA /* AppDelegate.swift */; };
-		120C34481BBDAD2900475EAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C34471BBDAD2900475EAA /* ViewController.swift */; };
 		120C344B1BBDAD2900475EAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 120C34491BBDAD2900475EAA /* Main.storyboard */; };
 		120C344D1BBDAD2900475EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 120C344C1BBDAD2900475EAA /* Assets.xcassets */; };
 		120C34501BBDAD2900475EAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 120C344E1BBDAD2900475EAA /* LaunchScreen.storyboard */; };
 		120C345B1BBDAD2900475EAA /* ZoomingIconsMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C345A1BBDAD2900475EAA /* ZoomingIconsMenuTests.swift */; };
+		120C34661BBDB46B00475EAA /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120C34651BBDB46B00475EAA /* MenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +28,6 @@
 /* Begin PBXFileReference section */
 		120C34421BBDAD2900475EAA /* ZoomingIconsMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZoomingIconsMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		120C34451BBDAD2900475EAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		120C34471BBDAD2900475EAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		120C344A1BBDAD2900475EAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		120C344C1BBDAD2900475EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		120C344F1BBDAD2900475EAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +35,7 @@
 		120C34561BBDAD2900475EAA /* ZoomingIconsMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ZoomingIconsMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		120C345A1BBDAD2900475EAA /* ZoomingIconsMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomingIconsMenuTests.swift; sourceTree = "<group>"; };
 		120C345C1BBDAD2900475EAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		120C34651BBDB46B00475EAA /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				120C34451BBDAD2900475EAA /* AppDelegate.swift */,
-				120C34471BBDAD2900475EAA /* ViewController.swift */,
+				120C34651BBDB46B00475EAA /* MenuViewController.swift */,
 				120C34491BBDAD2900475EAA /* Main.storyboard */,
 				120C344C1BBDAD2900475EAA /* Assets.xcassets */,
 				120C344E1BBDAD2900475EAA /* LaunchScreen.storyboard */,
@@ -196,8 +196,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				120C34481BBDAD2900475EAA /* ViewController.swift in Sources */,
 				120C34461BBDAD2900475EAA /* AppDelegate.swift in Sources */,
+				120C34661BBDB46B00475EAA /* MenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

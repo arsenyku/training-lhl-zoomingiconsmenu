@@ -16,13 +16,6 @@ protocol ZoomingIconViewController {
 
 class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UINavigationControllerDelegate{
     
-    enum TransitionState {
-        case Unzoomed
-        case Zoomed
-    }
-    
-    typealias ZoomingViews = (backgroundColourView: UIView, imageView: UIView)
-    
     private let kZoomingIconTransitionDuration: NSTimeInterval = 1.0
     private let kZoomingIconTransitionZoomedScale: CGFloat = 15
     private let kZoomingIconTransitionBackgroundScale: CGFloat = 0.80

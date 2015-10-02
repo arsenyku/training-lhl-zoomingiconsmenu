@@ -81,44 +81,34 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
         let endViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let containerView = transitionContext.containerView()!
         
-        let fromIconImageView = (startViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
-        let toIconImageView = (endViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
-        
-        let fromBackgroundColourView = (startViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
-        let toBackgroundColourView = (endViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
+        let startBackgroundView = (startViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
+        let startIconView = (startViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
+
+        let endBackgroundView = (endViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
+        let endIconView = (endViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
         
         // create view snapshots
         // view controller need to be in view hierarchy for snapshotting
         containerView.addSubview(startViewController.view)
-        let snapshot_fromBackgroundColourView = fromBackgroundColourView.snapshotViewAfterScreenUpdates(false)
+        let snapshotOfStartBackgroundView = startBackgroundView.snapshotViewAfterScreenUpdates(false)
+        let snapshotOfStartIconView = UIImageView(image: startIconView.image)
+        snapshotOfStartIconView.contentMode = .ScaleAspectFit
         
-        let snapshot_fromIconImageView = UIImageView(image: fromIconImageView.image)
-        snapshot_fromIconImageView.contentMode = .ScaleAspectFit
+        let endViewBackgroundColour = endViewController.view.backgroundColor!
         
-        
+        // setup animation
+        prepareForAnimation(containerView,
+            startViewController: startViewController, endViewController: endViewController,
+            snapshotOfStartBackgroundView: snapshotOfStartBackgroundView, snapshotOfStartIconView: snapshotOfStartIconView,
+            startBackgroundView: startBackgroundView, startIconView: startIconView,
+            endBackgroundView: endBackgroundView, endIconView: endIconView)
+
         // Pre-Animation states
         startViewController.view.transform = CGAffineTransformIdentity
         startViewController.view.alpha = 1
-        
-        snapshot_fromBackgroundColourView.transform = CGAffineTransformIdentity
-        snapshot_fromBackgroundColourView.frame = containerView.convertRect(fromBackgroundColourView.frame, fromView: fromBackgroundColourView.superview)
-        snapshot_fromIconImageView.frame = containerView.convertRect(fromIconImageView.frame, fromView: fromIconImageView.superview)
-        
-        // setup animation
-        fromBackgroundColourView.hidden = true
-        toBackgroundColourView.hidden = true
-        
-        fromIconImageView.hidden = true
-        toIconImageView.hidden = true
-        
-        containerView.backgroundColor = UIColor.whiteColor()
-        containerView.addSubview(startViewController.view)
-        containerView.addSubview(snapshot_fromBackgroundColourView)
-        containerView.addSubview(endViewController.view)
-        containerView.addSubview(snapshot_fromIconImageView)
-        
-        let toViewBackgroundColor = endViewController.view.backgroundColor
-        endViewController.view.backgroundColor = UIColor.clearColor()
+        snapshotOfStartBackgroundView.transform = CGAffineTransformIdentity
+        snapshotOfStartBackgroundView.frame = containerView.convertRect(startBackgroundView.frame, fromView: startBackgroundView.superview)
+        snapshotOfStartIconView.frame = containerView.convertRect(startIconView.frame, fromView: startIconView.superview)
         
         // Need to layout now if we want the correct parameters for frame
         endViewController.view.layoutIfNeeded()
@@ -133,28 +123,21 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
                     CGAffineTransformMakeScale(self.kZoomingIconTransitionBackgroundScale, self.kZoomingIconTransitionBackgroundScale)
                 startViewController.view.alpha = 0
                 
-                snapshot_fromBackgroundColourView.transform =
+                snapshotOfStartBackgroundView.transform =
                     CGAffineTransformMakeScale(self.kZoomingIconTransitionZoomedScale, self.kZoomingIconTransitionZoomedScale)
-                snapshot_fromBackgroundColourView.center = containerView.convertPoint(toIconImageView.center, fromView: toIconImageView.superview)
+                snapshotOfStartBackgroundView.center = containerView.convertPoint(endIconView.center, fromView: endIconView.superview)
                 
-                let convertedFrame = containerView.convertRect(toIconImageView.frame, fromView: toIconImageView.superview!)
-                snapshot_fromIconImageView.frame = convertedFrame
+                let convertedFrame = containerView.convertRect(endIconView.frame, fromView: endIconView.superview!)
+                snapshotOfStartIconView.frame = convertedFrame
                 
             },
             completion: { (finished) in
                 
-                startViewController.view.transform = CGAffineTransformIdentity
-                
-                snapshot_fromBackgroundColourView.removeFromSuperview()
-                snapshot_fromIconImageView.removeFromSuperview()
-                
-                fromBackgroundColourView.hidden = false
-                toBackgroundColourView.hidden = false
-                
-                fromIconImageView.hidden = false
-                toIconImageView.hidden = false
-                
-                endViewController.view.backgroundColor = toViewBackgroundColor
+                self.cleanupAfterAnimation(startViewController, endViewController: endViewController,
+                    endViewBackgroundColour: endViewBackgroundColour,
+                    snapshotOfStartBackgroundView: snapshotOfStartBackgroundView, snapshotOfStartIconView: snapshotOfStartIconView,
+                    startBackgroundView: startBackgroundView, startIconView: startIconView,
+                    endBackgroundView: endBackgroundView, endIconView: endIconView)
                 
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                 
@@ -187,6 +170,50 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         })
         
+    }
+    
+    private func prepareForAnimation(animationContainerView:UIView,
+        startViewController: UIViewController, endViewController: UIViewController,
+        snapshotOfStartBackgroundView:UIView, snapshotOfStartIconView:UIView,
+        startBackgroundView:UIView, startIconView:UIView,
+        endBackgroundView:UIView, endIconView:UIView){
+        
+            startBackgroundView.hidden = true
+            endBackgroundView.hidden = true
+            
+            startIconView.hidden = true
+            endIconView.hidden = true
+            
+            endViewController.view.backgroundColor = UIColor.clearColor()
+            
+            animationContainerView.backgroundColor = UIColor.whiteColor()
+            animationContainerView.addSubview(startViewController.view)
+            animationContainerView.addSubview(snapshotOfStartBackgroundView)
+            animationContainerView.addSubview(endViewController.view)
+            animationContainerView.addSubview(snapshotOfStartIconView)
+
+    }
+    
+    private func cleanupAfterAnimation(
+        startViewController: UIViewController, endViewController: UIViewController,
+        endViewBackgroundColour:UIColor,
+        snapshotOfStartBackgroundView:UIView, snapshotOfStartIconView:UIView,
+        startBackgroundView:UIView, startIconView:UIView,
+        endBackgroundView:UIView, endIconView:UIView){
+            
+            startViewController.view.transform = CGAffineTransformIdentity
+            
+            snapshotOfStartBackgroundView.removeFromSuperview()
+            snapshotOfStartIconView.removeFromSuperview()
+            
+            startBackgroundView.hidden = false
+            endBackgroundView.hidden = false
+            
+            startIconView.hidden = false
+            endIconView.hidden = false
+            
+            endViewController.view.backgroundColor = endViewBackgroundColour
+   
     }
     
 }

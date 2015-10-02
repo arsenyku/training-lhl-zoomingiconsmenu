@@ -168,6 +168,7 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
             startBackgroundView: startBackgroundView, startIconView: startIconView,
             endBackgroundView: endBackgroundView, endIconView: endIconView)
         
+        
         // Pre-Animation states
         endViewController.view.transform =
             CGAffineTransformMakeScale(self.kZoomingIconTransitionBackgroundScale, self.kZoomingIconTransitionBackgroundScale)

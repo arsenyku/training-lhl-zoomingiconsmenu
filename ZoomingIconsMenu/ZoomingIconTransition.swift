@@ -16,7 +16,7 @@ protocol ZoomingIconViewController {
 
 class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UINavigationControllerDelegate{
     
-    private let kZoomingIconTransitionDuration: NSTimeInterval = 1.0
+    private let kZoomingIconTransitionDuration: NSTimeInterval = 2.0
     private let kZoomingIconTransitionZoomedScale: CGFloat = 15
     private let kZoomingIconTransitionBackgroundScale: CGFloat = 0.80
     
@@ -154,7 +154,7 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
         
         // create view snapshots
         // view controller need to be in view hierarchy for snapshotting
-        containerView.addSubview(startViewController.view)
+        containerView.addSubview(endViewController.view)
         let snapshotOfEndBackgroundView = endBackgroundView.snapshotViewAfterScreenUpdates(false)
         let snapshotOfEndIconView = UIImageView(image: endIconView.image)
         snapshotOfEndIconView.contentMode = .ScaleAspectFit
@@ -271,12 +271,12 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
             startIconView.hidden = true
             endIconView.hidden = true
             
-            endViewController.view.backgroundColor = UIColor.clearColor()
+            startViewController.view.backgroundColor = UIColor.clearColor()
             
             animationContainerView.backgroundColor = UIColor.whiteColor()
-            animationContainerView.addSubview(startViewController.view)
-            animationContainerView.addSubview(snapshotOfEndBackgroundView)
             animationContainerView.addSubview(endViewController.view)
+            animationContainerView.addSubview(snapshotOfEndBackgroundView)
+            animationContainerView.addSubview(startViewController.view)
             animationContainerView.addSubview(snapshotOfEndIconView)
             
     }

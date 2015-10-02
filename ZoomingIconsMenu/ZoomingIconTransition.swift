@@ -37,30 +37,6 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
         
     }
     
-    func configureViewsForState(state: TransitionState, containerView: UIView, backgroundViewController: UIViewController,
-        viewsInBackground: ZoomingViews, viewsInForeground: ZoomingViews, snapshotViews: ZoomingViews) {
-            
-            switch state {
-            case .Unzoomed:
-                backgroundViewController.view.transform = CGAffineTransformIdentity
-                backgroundViewController.view.alpha = 1
-                
-                snapshotViews.backgroundColourView.transform = CGAffineTransformIdentity
-                snapshotViews.backgroundColourView.frame = containerView.convertRect(viewsInBackground.backgroundColourView.frame, fromView: viewsInBackground.backgroundColourView.superview)
-                snapshotViews.imageView.frame = containerView.convertRect(viewsInBackground.imageView.frame, fromView: viewsInBackground.imageView.superview)
-                
-            case .Zoomed:
-                backgroundViewController.view.transform = CGAffineTransformMakeScale(kZoomingIconTransitionBackgroundScale, kZoomingIconTransitionBackgroundScale)
-                backgroundViewController.view.alpha = 0
-                
-                snapshotViews.backgroundColourView.transform = CGAffineTransformMakeScale(kZoomingIconTransitionZoomedScale, kZoomingIconTransitionZoomedScale)
-                snapshotViews.backgroundColourView.center = containerView.convertPoint(viewsInForeground.imageView.center, fromView: viewsInForeground.imageView.superview)
-                snapshotViews.imageView.frame = containerView.convertRect(viewsInForeground.imageView.frame, fromView: viewsInForeground.imageView.superview)
-                
-            }
-    }
-    
-    
     // This method can only  be a nop if the transition is interactive and not a
     // percentDriven interactive transition.
     func animateTransition(transitionContext: UIViewControllerContextTransitioning){
@@ -101,19 +77,19 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
     private func executeZoomTransition(transitionContext: UIViewControllerContextTransitioning){
         
         let duration = transitionDuration(transitionContext)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let startViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let endViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let containerView = transitionContext.containerView()!
         
-        let fromIconImageView = (fromViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
-        let toIconImageView = (toViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
+        let fromIconImageView = (startViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
+        let toIconImageView = (endViewController as! ZoomingIconViewController).zoomingIconImageViewForTransition(self)!
         
-        let fromBackgroundColourView = (fromViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
-        let toBackgroundColourView = (toViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
+        let fromBackgroundColourView = (startViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
+        let toBackgroundColourView = (endViewController as! ZoomingIconViewController).zoomingIconBackgroundColourViewForTransition(self)!
         
         // create view snapshots
         // view controller need to be in view hierarchy for snapshotting
-        containerView.addSubview(fromViewController.view)
+        containerView.addSubview(startViewController.view)
         let snapshot_fromBackgroundColourView = fromBackgroundColourView.snapshotViewAfterScreenUpdates(false)
         
         let snapshot_fromIconImageView = UIImageView(image: fromIconImageView.image)
@@ -121,8 +97,8 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
         
         
         // Pre-Animation states
-        fromViewController.view.transform = CGAffineTransformIdentity
-        fromViewController.view.alpha = 1
+        startViewController.view.transform = CGAffineTransformIdentity
+        startViewController.view.alpha = 1
         
         snapshot_fromBackgroundColourView.transform = CGAffineTransformIdentity
         snapshot_fromBackgroundColourView.frame = containerView.convertRect(fromBackgroundColourView.frame, fromView: fromBackgroundColourView.superview)
@@ -136,16 +112,16 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
         toIconImageView.hidden = true
         
         containerView.backgroundColor = UIColor.whiteColor()
-        containerView.addSubview(fromViewController.view)
+        containerView.addSubview(startViewController.view)
         containerView.addSubview(snapshot_fromBackgroundColourView)
-        containerView.addSubview(toViewController.view)
+        containerView.addSubview(endViewController.view)
         containerView.addSubview(snapshot_fromIconImageView)
         
-        let toViewBackgroundColor = toViewController.view.backgroundColor
-        toViewController.view.backgroundColor = UIColor.clearColor()
+        let toViewBackgroundColor = endViewController.view.backgroundColor
+        endViewController.view.backgroundColor = UIColor.clearColor()
         
         // Need to layout now if we want the correct parameters for frame
-        toViewController.view.layoutIfNeeded()
+        endViewController.view.layoutIfNeeded()
         
         // perform animation
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1,
@@ -153,9 +129,9 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
             animations: { () -> Void in
                 
                 // Post-Animation states
-                fromViewController.view.transform =
+                startViewController.view.transform =
                     CGAffineTransformMakeScale(self.kZoomingIconTransitionBackgroundScale, self.kZoomingIconTransitionBackgroundScale)
-                fromViewController.view.alpha = 0
+                startViewController.view.alpha = 0
                 
                 snapshot_fromBackgroundColourView.transform =
                     CGAffineTransformMakeScale(self.kZoomingIconTransitionZoomedScale, self.kZoomingIconTransitionZoomedScale)
@@ -167,7 +143,7 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
             },
             completion: { (finished) in
                 
-                fromViewController.view.transform = CGAffineTransformIdentity
+                startViewController.view.transform = CGAffineTransformIdentity
                 
                 snapshot_fromBackgroundColourView.removeFromSuperview()
                 snapshot_fromIconImageView.removeFromSuperview()
@@ -178,7 +154,7 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
                 fromIconImageView.hidden = false
                 toIconImageView.hidden = false
                 
-                toViewController.view.backgroundColor = toViewBackgroundColor
+                endViewController.view.backgroundColor = toViewBackgroundColor
                 
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                 
@@ -191,21 +167,21 @@ class ZoomingIconTransition: NSObject, UIViewControllerAnimatedTransitioning, UI
         
         
         let duration = transitionDuration(transitionContext)
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+        let startViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+        let endViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
         let containerView = transitionContext.containerView()!
         
         // setup animation
-        containerView.addSubview(fromViewController.view!)
-        containerView.addSubview(toViewController.view!)
-        toViewController.view.alpha = 0
+        containerView.addSubview(startViewController.view!)
+        containerView.addSubview(endViewController.view!)
+        endViewController.view.alpha = 0
         
         
         // perform animation
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1,
             initialSpringVelocity: 0, options: UIViewAnimationOptions.TransitionNone,
             animations: { () -> Void in
-                toViewController.view.alpha = 1
+                endViewController.view.alpha = 1
             },
             completion: { (finished) in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
